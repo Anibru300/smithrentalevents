@@ -306,6 +306,72 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // Testimonials carousel
+    const track = document.getElementById('testimonialsTrack');
+    const dotsContainer = document.getElementById('carouselDots');
+    const prevBtn = document.querySelector('.carousel-prev');
+    const nextBtn = document.querySelector('.carousel-next');
+    
+    if (track && dotsContainer) {
+        const cards = track.querySelectorAll('.testimonial-card');
+        let currentIndex = 0;
+        let autoPlayInterval;
+        
+        // Create dots
+        cards.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.className = 'carousel-dot';
+            dot.setAttribute('aria-label', `Go to testimonial ${index + 1}`);
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+        
+        const dots = dotsContainer.querySelectorAll('.carousel-dot');
+        
+        function goToSlide(index) {
+            currentIndex = index;
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+        }
+        
+        function nextSlide() {
+            goToSlide((currentIndex + 1) % cards.length);
+        }
+        
+        function prevSlide() {
+            goToSlide((currentIndex - 1 + cards.length) % cards.length);
+        }
+        
+        if (prevBtn) prevBtn.addEventListener('click', () => {
+            prevSlide();
+            resetAutoPlay();
+        });
+        
+        if (nextBtn) nextBtn.addEventListener('click', () => {
+            nextSlide();
+            resetAutoPlay();
+        });
+        
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(nextSlide, 5000);
+        }
+        
+        function resetAutoPlay() {
+            clearInterval(autoPlayInterval);
+            startAutoPlay();
+        }
+        
+        // Pause on hover
+        track.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+        track.addEventListener('mouseleave', startAutoPlay);
+        
+        startAutoPlay();
+    }
 });
 
 // Lightbox functions

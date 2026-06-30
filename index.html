@@ -32,6 +32,7 @@
                 <a href="#about">About</a>
                 <a href="#services">Services</a>
                 <a href="#testimonials">Reviews</a>
+                <a href="#partners">As Seen On</a>
                 <a href="#gallery">Gallery</a>
                 <a href="#reels">Reels</a>
                 <a href="#interiors">Interiors</a>
@@ -163,39 +164,81 @@
                 <h2>What Our Clients Say</h2>
                 <p class="section-intro">Real experiences from real celebrations.</p>
             </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card reveal-up">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">"Smith Rental Events transformed our backyard into a dream venue. Every detail was intentional, elegant, and perfectly styled. Our guests are still talking about it!"</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">JM</div>
-                        <div>
-                            <span class="testimonial-name">Jessica Martinez</span>
-                            <span class="testimonial-event">Birthday Celebration</span>
+            <div class="testimonials-carousel reveal-up">
+                <div class="testimonials-track" id="testimonialsTrack">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-text">"Smith Rental Events transformed our backyard into a dream venue. Every detail was intentional, elegant, and perfectly styled. Our guests are still talking about it!"</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">JM</div>
+                            <div>
+                                <span class="testimonial-name">Jessica Martinez</span>
+                                <span class="testimonial-event">Birthday Celebration</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-text">"The interior design service completely changed our living room. They brought warmth, style, and personality into our home. Truly heart-centered design."</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">RL</div>
+                            <div>
+                                <span class="testimonial-name">Rebecca Lopez</span>
+                                <span class="testimonial-event">Interior Styling</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-text">"Our gender reveal was absolutely magical. The setup, the lighting, the fireworks moment — everything was beyond what we imagined. Thank you for making it unforgettable!"</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">AK</div>
+                            <div>
+                                <span class="testimonial-name">Amanda & Kevin</span>
+                                <span class="testimonial-event">Gender Reveal</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card reveal-up delay-1">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">"The interior design service completely changed our living room. They brought warmth, style, and personality into our home. Truly heart-centered design."</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">RL</div>
-                        <div>
-                            <span class="testimonial-name">Rebecca Lopez</span>
-                            <span class="testimonial-event">Interior Styling</span>
-                        </div>
-                    </div>
+                <button class="carousel-btn carousel-prev" aria-label="Previous testimonial">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+                <button class="carousel-btn carousel-next" aria-label="Next testimonial">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+                <div class="carousel-dots" id="carouselDots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- As Seen On -->
+    <section class="section partners" id="partners">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <p class="section-subtitle">Trusted & Featured</p>
+                <h2>As Seen On</h2>
+                <p class="section-intro">Proudly recognized by leading voices in events, lifestyle, and design.</p>
+            </div>
+            <div class="partners-grid">
+                <div class="partner-logo reveal-up">
+                    <span class="partner-name">Tucson Lifestyle</span>
+                    <span class="partner-type">Magazine</span>
                 </div>
-                <div class="testimonial-card reveal-up delay-2">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">"Our gender reveal was absolutely magical. The setup, the lighting, the fireworks moment — everything was beyond what we imagined. Thank you for making it unforgettable!"</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">AK</div>
-                        <div>
-                            <span class="testimonial-name">Amanda & Kevin</span>
-                            <span class="testimonial-event">Gender Reveal</span>
-                        </div>
-                    </div>
+                <div class="partner-logo reveal-up delay-1">
+                    <span class="partner-name">Arizona Weddings</span>
+                    <span class="partner-type">Directory</span>
+                </div>
+                <div class="partner-logo reveal-up delay-2">
+                    <span class="partner-name">The Event Pro</span>
+                    <span class="partner-type">Blog</span>
+                </div>
+                <div class="partner-logo reveal-up">
+                    <span class="partner-name">Desert Living</span>
+                    <span class="partner-type">Media</span>
+                </div>
+                <div class="partner-logo reveal-up delay-1">
+                    <span class="partner-name">Southwest Style</span>
+                    <span class="partner-type">Magazine</span>
                 </div>
             </div>
         </div>
@@ -367,6 +410,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="contact-map reveal-left delay-1">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d214782.0029896215!2d-111.02520345!3d32.22189195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86d665a4513f1b23%3A0x574f6fac2f215c48!2sTucson%2C%20AZ!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
+                        width="100%" 
+                        height="320" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Smith Rental Events location in Tucson, Arizona">
+                    </iframe>
+                </div>
                 <form class="contact-form reveal-right" id="contactForm" action="https://wa.me/15204066839" method="get" target="_blank">
                     <div class="form-group">
                         <label for="name">Full Name</label>
@@ -414,6 +469,7 @@
                     <a href="#about">About</a>
                     <a href="#services">Services</a>
                     <a href="#testimonials">Reviews</a>
+                    <a href="#partners">As Seen On</a>
                     <a href="#gallery">Gallery</a>
                     <a href="#reels">Reels</a>
                     <a href="#interiors">Interiors</a>
