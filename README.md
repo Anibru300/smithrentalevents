@@ -4,7 +4,7 @@ A stunning, fully responsive website for **Smith Rental Events**, an event renta
 
 ## Live Website
 
-🌐 [https://smithrentalevents.github.io](https://smithrentalevents.github.io) *(update after publishing)*
+🌐 [https://anibru300.github.io/smithrentalevents/](https://anibru300.github.io/smithrentalevents/)
 
 ## Features
 
@@ -74,7 +74,7 @@ git push -u origin main
 ### Step 4: Your URL
 The site will be available at:
 ```
-https://YOUR_USERNAME.github.io/smithrentalevents
+https://anibru300.github.io/smithrentalevents/
 ```
 
 If you want a custom domain, add a `CNAME` file with your domain name.
