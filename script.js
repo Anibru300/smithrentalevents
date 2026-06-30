@@ -260,6 +260,89 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
+// Confetti effect for quote buttons
+function createConfetti(x, y) {
+    const colors = ['#c9a227', '#6b5b4f', '#a89f91', '#f5f0e8', '#e8e0d5'];
+    const particleCount = 40;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'fixed';
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        particle.style.width = (Math.random() * 8 + 4) + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        particle.style.pointerEvents = 'none';
+        particle.style.zIndex = '9999';
+        document.body.appendChild(particle);
+        
+        const angle = (Math.PI * 2 * i) / particleCount;
+        const velocity = Math.random() * 100 + 50;
+        const tx = Math.cos(angle) * velocity;
+        const ty = Math.sin(angle) * velocity - 100;
+        const rotation = Math.random() * 720;
+        
+        particle.animate([
+            { transform: 'translate(0, 0) rotate(0deg)', opacity: 1 },
+            { transform: `translate(${tx}px, ${ty}px) rotate(${rotation}deg)`, opacity: 0 }
+        ], {
+            duration: 1000 + Math.random() * 500,
+            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+            fill: 'forwards'
+        }).onfinish = () => particle.remove();
+    }
+}
+
+const quoteButtons = document.querySelectorAll('.btn-primary, .nav-cta, .btn-light');
+quoteButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+        const rect = button.getBoundingClientRect();
+        createConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    });
+});
+
+// Before/After Slider
+const slider = document.getElementById('slider');
+const afterImage = document.getElementById('afterImage');
+const beforeAfterContainer = document.querySelector('.before-after-container');
+
+if (slider && afterImage && beforeAfterContainer) {
+    let isDragging = false;
+    
+    function updateSlider(x) {
+        const rect = beforeAfterContainer.getBoundingClientRect();
+        let percentage = ((x - rect.left) / rect.width) * 100;
+        percentage = Math.max(0, Math.min(100, percentage));
+        
+        slider.style.left = percentage + '%';
+        afterImage.style.width = percentage + '%';
+    }
+    
+    slider.addEventListener('mousedown', () => isDragging = true);
+    slider.addEventListener('touchstart', () => isDragging = true);
+    
+    window.addEventListener('mouseup', () => isDragging = false);
+    window.addEventListener('touchend', () => isDragging = false);
+    
+    beforeAfterContainer.addEventListener('mousemove', function(e) {
+        if (isDragging) {
+            updateSlider(e.clientX);
+        }
+    });
+    
+    beforeAfterContainer.addEventListener('touchmove', function(e) {
+        if (isDragging) {
+            updateSlider(e.touches[0].clientX);
+        }
+    });
+    
+    beforeAfterContainer.addEventListener('click', function(e) {
+        updateSlider(e.clientX);
+    });
+}
+
     // Counter animation
     const counters = document.querySelectorAll('.about-stat-number, .stat-number');
     
