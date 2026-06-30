@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Header scroll effect
     const header = document.getElementById('header');
-    let lastScroll = 0;
 
     window.addEventListener('scroll', function() {
         const currentScroll = window.pageYOffset;
@@ -31,8 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             header.classList.remove('scrolled');
         }
-
-        lastScroll = currentScroll;
     });
 
     // Scroll reveal animations
@@ -62,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
             
             if (pageYOffset >= sectionTop - 200) {
                 current = section.getAttribute('id');
@@ -73,6 +69,57 @@ document.addEventListener('DOMContentLoaded', function() {
             link.classList.remove('active');
             if (link.getAttribute('href') === '#' + current) {
                 link.classList.add('active');
+            }
+        });
+    });
+
+    // Video autoplay on scroll
+    const videos = document.querySelectorAll('.autoplay-video');
+    
+    const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const video = entry.target;
+            const overlay = video.nextElementSibling;
+            
+            if (entry.isIntersecting) {
+                video.play().catch(() => {});
+                if (overlay) overlay.classList.add('playing');
+            } else {
+                video.pause();
+                if (overlay) overlay.classList.remove('playing');
+            }
+        });
+    }, {
+        threshold: 0.5
+    });
+
+    videos.forEach(video => {
+        videoObserver.observe(video);
+        
+        // Click to toggle play/pause
+        video.addEventListener('click', function() {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        });
+    });
+
+    // Play button toggle
+    const playButtons = document.querySelectorAll('.video-play-btn');
+    playButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const video = this.closest('.reel-item').querySelector('video');
+            const overlay = this.closest('.video-overlay');
+            
+            if (video.paused) {
+                video.play();
+                overlay.classList.add('playing');
+            } else {
+                video.pause();
+                overlay.classList.remove('playing');
             }
         });
     });
@@ -98,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'other': 'Other'
         };
         
-        const text = `Hi! My name is ${name}. I'm interested in a quote for ${serviceText[service] || service}. Phone: ${phone}. ${message}`;
+        const text = `Hi! My name is ${name}. I am interested in a quote for ${serviceText[service] || service}. Phone: ${phone}. ${message}`;
         
         const whatsappUrl = `https://wa.me/15204066839?text=${encodeURIComponent(text)}`;
         window.open(whatsappUrl, '_blank');
@@ -132,4 +179,78 @@ document.addEventListener('DOMContentLoaded', function() {
             heroBg.style.transform = `scale(1.1) translateY(${scrolled * 0.4}px)`;
         }
     });
+
+    // Counter animation
+    const counters = document.querySelectorAll('.about-stat-number, .stat-number');
+    
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = entry.target;
+                const text = target.textContent;
+                const number = parseInt(text.replace(/\D/g, ''));
+                const suffix = text.replace(/[0-9]/g, '');
+                
+                if (!isNaN(number)) {
+                    let current = 0;
+                    const increment = number / 50;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= number) {
+                            target.textContent = number + suffix;
+                            clearInterval(timer);
+                        } else {
+                            target.textContent = Math.floor(current) + suffix;
+                        }
+                    }, 30);
+                }
+                
+                counterObserver.unobserve(target);
+            }
+        });
+    }, {
+        threshold: 0.5
+    });
+
+    counters.forEach(counter => {
+        counterObserver.observe(counter);
+    });
+
+    // Magnetic button effect for desktop
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const buttons = document.querySelectorAll('.btn-primary, .btn-light');
+        
+        buttons.forEach(btn => {
+            btn.addEventListener('mousemove', function(e) {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                btn.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                btn.style.transform = '';
+            });
+        });
+    }
+
+    // Subtle tilt effect for service cards
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const cards = document.querySelectorAll('.service-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', function(e) {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                
+                card.style.transform = `perspective(1000px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-12px)`;
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                card.style.transform = '';
+            });
+        });
+    }
 });

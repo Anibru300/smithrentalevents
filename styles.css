@@ -427,6 +427,28 @@ img {
     box-shadow: 0 10px 30px rgba(107, 91, 79, 0.35);
 }
 
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 40%;
+    height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: rotate(25deg);
+    transition: none;
+}
+
+.btn-primary:hover::after {
+    animation: shimmer 0.8s ease forwards;
+}
+
+@keyframes shimmer {
+    to {
+        left: 140%;
+    }
+}
+
 .btn-primary:hover {
     background: var(--color-espresso);
     transform: translateY(-3px);
@@ -768,12 +790,63 @@ img {
     box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
 }
 
+.reel-item {
+    position: relative;
+}
+
 .reel-item video {
     width: 100%;
     aspect-ratio: 9/16;
     object-fit: cover;
     display: block;
     background: var(--color-espresso);
+    cursor: pointer;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(44, 36, 31, 0.25);
+    opacity: 1;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.video-overlay.playing {
+    opacity: 0;
+}
+
+.video-play-btn {
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-espresso);
+    cursor: pointer;
+    pointer-events: auto;
+    transition: var(--transition);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.video-play-btn svg {
+    width: 28px;
+    height: 28px;
+    margin-left: 4px;
+}
+
+.video-play-btn:hover {
+    transform: scale(1.15);
+    background: var(--color-light);
 }
 
 .reel-caption {
