@@ -1,4 +1,58 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Typewriter effect
+    const typewriterElement = document.getElementById('typewriter');
+    const taglineText = "Petit events, elevated with intention";
+    let charIndex = 0;
+    
+    function typeWriter() {
+        if (charIndex < taglineText.length) {
+            typewriterElement.textContent += taglineText.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeWriter, 80);
+        }
+    }
+    
+    setTimeout(typeWriter, 500);
+    
+    // Generate particles
+    const particlesContainer = document.getElementById('particles');
+    if (particlesContainer) {
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particle.style.animationDelay = (Math.random() * 10) + 's';
+            particle.style.width = (Math.random() * 6 + 2) + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.opacity = Math.random() * 0.5 + 0.2;
+            particlesContainer.appendChild(particle);
+        }
+    }
+    
+    // Custom cursor
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const dot = document.createElement('div');
+        dot.className = 'cursor-dot';
+        const outline = document.createElement('div');
+        outline.className = 'cursor-outline';
+        document.body.appendChild(dot);
+        document.body.appendChild(outline);
+        
+        window.addEventListener('mousemove', function(e) {
+            dot.style.left = e.clientX + 'px';
+            dot.style.top = e.clientY + 'px';
+            outline.style.left = e.clientX + 'px';
+            outline.style.top = e.clientY + 'px';
+        });
+        
+        const hoverElements = document.querySelectorAll('a, button, .gallery-item, .service-card');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => outline.classList.add('hover'));
+            el.addEventListener('mouseleave', () => outline.classList.remove('hover'));
+        });
+    }
+    
     // Mobile menu toggle
     const menuToggle = document.getElementById('menuToggle');
     const nav = document.getElementById('nav');
@@ -171,14 +225,40 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Parallax effect for hero background
-    const heroBg = document.querySelector('.hero-bg img');
+    const heroBg = document.querySelector('.hero-bg video');
     
     window.addEventListener('scroll', function() {
         if (heroBg) {
             const scrolled = window.pageYOffset;
-            heroBg.style.transform = `scale(1.1) translateY(${scrolled * 0.4}px)`;
+            heroBg.style.transform = `scale(1.1) translateY(${scrolled * 0.3}px)`;
         }
     });
+});
+
+// Lightbox functions
+function openLightbox(element) {
+    const img = element.querySelector('img');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Close lightbox with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeLightbox();
+    }
+});
 
     // Counter animation
     const counters = document.querySelectorAll('.about-stat-number, .stat-number');

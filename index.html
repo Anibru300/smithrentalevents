@@ -25,6 +25,7 @@
         <div class="container header-container">
             <a href="#" class="logo">
                 <img src="assets/logo.jpg" alt="Smith Rental Events" class="logo-img">
+                <span class="logo-text">Smith Rental Events</span>
             </a>
             <nav class="nav" id="nav">
                 <a href="#home">Home</a>
@@ -46,11 +47,14 @@
     <!-- Hero -->
     <section class="hero" id="home">
         <div class="hero-bg">
-            <img src="assets/evento2.jpg" alt="Elegant event design by Smith Rental Events">
+            <video autoplay muted loop playsinline poster="assets/evento2.jpg">
+                <source src="assets/reel-backyard.mp4" type="video/mp4">
+            </video>
         </div>
         <div class="hero-overlay"></div>
+        <div class="particles" id="particles"></div>
         <div class="hero-content">
-            <p class="hero-tagline fade-in">Petit events, elevated with intention</p>
+            <p class="hero-tagline"><span id="typewriter"></span><span class="cursor">|</span></p>
             <h1 class="fade-in delay-1">Smith Rental Events</h1>
             <p class="hero-text fade-in delay-2">Event rentals, interior design, and full production for unforgettable celebrations in Tucson, Arizona.</p>
             <div class="hero-buttons fade-in delay-3">
@@ -158,17 +162,17 @@
                 <p class="section-intro">A glimpse of our designs, creativity, and attention to detail.</p>
             </div>
             <div class="gallery-grid">
-                <div class="gallery-item reveal-up"><img src="assets/evento1.jpg" alt="Elegant tablescape with lemons and white flowers"></div>
-                <div class="gallery-item reveal-up delay-1"><img src="assets/evento2.jpg" alt="Night event with draped fabric and lights"></div>
-                <div class="gallery-item reveal-up delay-2"><img src="assets/evento3.jpg" alt="Table setting with red roses and candles"></div>
-                <div class="gallery-item reveal-up"><img src="assets/evento4.jpg" alt="Backyard event with white chairs and lighting"></div>
-                <div class="gallery-item reveal-up delay-1"><img src="assets/evento5.jpg" alt="Gold and green balloon backdrop"></div>
-                <div class="gallery-item reveal-up delay-2"><img src="assets/evento6.jpg" alt="Green wall wedding backdrop"></div>
-                <div class="gallery-item reveal-up"><img src="assets/evento7.jpg" alt="Elegant tent ceiling draping"></div>
-                <div class="gallery-item reveal-up delay-1"><img src="assets/evento8.jpg" alt="Cupcake display detail"></div>
-                <div class="gallery-item reveal-up delay-2"><img src="assets/evento9.jpg" alt="Dramatic floral wall installation"></div>
-                <div class="gallery-item reveal-up"><img src="assets/evento10.jpg" alt="Outdoor table with red and pink decor"></div>
-                <div class="gallery-item reveal-up delay-1"><img src="assets/evento11.jpg" alt="Balloon arch birthday setup"></div>
+                <div class="gallery-item reveal-up" onclick="openLightbox(this)"><img src="assets/evento1.jpg" alt="Elegant tablescape with lemons and white flowers"></div>
+                <div class="gallery-item reveal-up delay-1" onclick="openLightbox(this)"><img src="assets/evento2.jpg" alt="Night event with draped fabric and lights"></div>
+                <div class="gallery-item reveal-up delay-2" onclick="openLightbox(this)"><img src="assets/evento3.jpg" alt="Table setting with red roses and candles"></div>
+                <div class="gallery-item reveal-up" onclick="openLightbox(this)"><img src="assets/evento4.jpg" alt="Backyard event with white chairs and lighting"></div>
+                <div class="gallery-item reveal-up delay-1" onclick="openLightbox(this)"><img src="assets/evento5.jpg" alt="Gold and green balloon backdrop"></div>
+                <div class="gallery-item reveal-up delay-2" onclick="openLightbox(this)"><img src="assets/evento6.jpg" alt="Green wall wedding backdrop"></div>
+                <div class="gallery-item reveal-up" onclick="openLightbox(this)"><img src="assets/evento7.jpg" alt="Elegant tent ceiling draping"></div>
+                <div class="gallery-item reveal-up delay-1" onclick="openLightbox(this)"><img src="assets/evento8.jpg" alt="Cupcake display detail"></div>
+                <div class="gallery-item reveal-up delay-2" onclick="openLightbox(this)"><img src="assets/evento9.jpg" alt="Dramatic floral wall installation"></div>
+                <div class="gallery-item reveal-up" onclick="openLightbox(this)"><img src="assets/evento10.jpg" alt="Outdoor table with red and pink decor"></div>
+                <div class="gallery-item reveal-up delay-1" onclick="openLightbox(this)"><img src="assets/evento11.jpg" alt="Balloon arch birthday setup"></div>
             </div>
             <div class="gallery-cta reveal-up">
                 <a href="https://www.instagram.com/smith.rentalevents" target="_blank" rel="noopener noreferrer" class="btn btn-outline">See More on Instagram</a>
@@ -354,6 +358,12 @@
             </div>
         </div>
     </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+        <img src="" alt="Gallery image" id="lightbox-img">
+    </div>
 
     <script src="script.js"></script>
 </body>
