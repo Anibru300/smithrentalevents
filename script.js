@@ -150,7 +150,6 @@ document.addEventListener('DOMContentLoaded', function() {
     videos.forEach(video => {
         videoObserver.observe(video);
         
-        // Click to toggle play/pause
         video.addEventListener('click', function() {
             if (video.paused) {
                 video.play();
@@ -233,6 +232,80 @@ document.addEventListener('DOMContentLoaded', function() {
             heroBg.style.transform = `scale(1.1) translateY(${scrolled * 0.3}px)`;
         }
     });
+
+    // Counter animation
+    const counters = document.querySelectorAll('.about-stat-number, .stat-number');
+    
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = entry.target;
+                const text = target.textContent;
+                const number = parseInt(text.replace(/\D/g, ''));
+                const suffix = text.replace(/[0-9]/g, '');
+                
+                if (!isNaN(number)) {
+                    let current = 0;
+                    const increment = number / 50;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= number) {
+                            target.textContent = number + suffix;
+                            clearInterval(timer);
+                        } else {
+                            target.textContent = Math.floor(current) + suffix;
+                        }
+                    }, 30);
+                }
+                
+                counterObserver.unobserve(target);
+            }
+        });
+    }, {
+        threshold: 0.5
+    });
+
+    counters.forEach(counter => {
+        counterObserver.observe(counter);
+    });
+
+    // Magnetic button effect for desktop
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const buttons = document.querySelectorAll('.btn-primary, .btn-light');
+        
+        buttons.forEach(btn => {
+            btn.addEventListener('mousemove', function(e) {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                btn.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                btn.style.transform = '';
+            });
+        });
+    }
+
+    // Subtle tilt effect for service cards
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const cards = document.querySelectorAll('.service-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', function(e) {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                
+                card.style.transform = `perspective(1000px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-12px)`;
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                card.style.transform = '';
+            });
+        });
+    }
 });
 
 // Lightbox functions
@@ -342,78 +415,3 @@ if (slider && afterImage && beforeAfterContainer) {
         updateSlider(e.clientX);
     });
 }
-
-    // Counter animation
-    const counters = document.querySelectorAll('.about-stat-number, .stat-number');
-    
-    const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const target = entry.target;
-                const text = target.textContent;
-                const number = parseInt(text.replace(/\D/g, ''));
-                const suffix = text.replace(/[0-9]/g, '');
-                
-                if (!isNaN(number)) {
-                    let current = 0;
-                    const increment = number / 50;
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= number) {
-                            target.textContent = number + suffix;
-                            clearInterval(timer);
-                        } else {
-                            target.textContent = Math.floor(current) + suffix;
-                        }
-                    }, 30);
-                }
-                
-                counterObserver.unobserve(target);
-            }
-        });
-    }, {
-        threshold: 0.5
-    });
-
-    counters.forEach(counter => {
-        counterObserver.observe(counter);
-    });
-
-    // Magnetic button effect for desktop
-    if (window.matchMedia('(pointer: fine)').matches) {
-        const buttons = document.querySelectorAll('.btn-primary, .btn-light');
-        
-        buttons.forEach(btn => {
-            btn.addEventListener('mousemove', function(e) {
-                const rect = btn.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                
-                btn.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
-            });
-            
-            btn.addEventListener('mouseleave', function() {
-                btn.style.transform = '';
-            });
-        });
-    }
-
-    // Subtle tilt effect for service cards
-    if (window.matchMedia('(pointer: fine)').matches) {
-        const cards = document.querySelectorAll('.service-card');
-        
-        cards.forEach(card => {
-            card.addEventListener('mousemove', function(e) {
-                const rect = card.getBoundingClientRect();
-                const x = (e.clientX - rect.left) / rect.width - 0.5;
-                const y = (e.clientY - rect.top) / rect.height - 0.5;
-                
-                card.style.transform = `perspective(1000px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-12px)`;
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                card.style.transform = '';
-            });
-        });
-    }
-});
