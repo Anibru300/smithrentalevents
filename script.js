@@ -17,7 +17,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Generate particles
     const particlesContainer = document.getElementById('particles');
     if (particlesContainer) {
-        for (let i = 0; i < 30; i++) {
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        const particleCount = isMobile ? 12 : 30;
+        
+        for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
             particle.style.left = Math.random() * 100 + '%';
